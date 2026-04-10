@@ -11,8 +11,8 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Joseph Schiavone
+ * @version 2026.04.10
  */
 
 public class Game 
@@ -34,30 +34,44 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room foyer, dining, library, basement, lab, bedroom, hallway, safeRoom, kitchen;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
+        foyer = new Room("in the mansion foyer");
+        dining = new Room("in a dusty dining room");
+        library = new Room("in a dark library filled with books");
+        basement = new Room("in a creepy basement");
+        lab = new Room("in a hidden laboratory");
+        bedroom = new Room("in an abandoned bedroom");
+        hallway = new Room("in a long hallway");
+        safeRoom = new Room("in a safe room with a typewriter");
+        kitchen = new Room("in a slime ridden kitchen");
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theater.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        foyer.setExit("north", hallway);
+        foyer.setExit("east", dining);
+        
+        dining.setExit("west", foyer);
+        dining.setExit("north", kitchen);
+        
+        hallway.setExit("south", foyer);
+        hallway.setExit("east", library);
+        hallway.setExit("west", bedroom);
+        
+        library.setExit("west", hallway);
+        library.setExit("down", basement);
+        
+        basement.setExit("up", library);
+        basement.setExit("east", lab);
+        
+        lab.setExit("west", basement);
+        
+        bedroom.setExit("east", hallway);
+        bedroom.setExit("north", safeRoom);
+        
+        safeRoom.setExit("south", bedroom);
+        
+        kitchen.setExit("south",dining);
+        currentRoom = foyer;  // start game in foyer
     }
 
     /**
