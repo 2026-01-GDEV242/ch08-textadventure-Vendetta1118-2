@@ -98,8 +98,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to the Mansion...");
+        System.out.println("Something feels wrong. The air is cold.");
+        System.out.println("Find a way out...if you can.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -132,6 +133,10 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+                
+            case LOOK: 
+                look();
+                break;
         }
         return wantToQuit;
     }
@@ -145,11 +150,20 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You are lost. You are alone. You are trapped inside a mansion.");
+        System.out.println("Explore rooms and try to survive.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
+    }
+    
+    /**
+     * Handles the look command
+     * Reprints the current room description
+     */
+    private void look() 
+    {
+       System.out.println(currentRoom.getLongDescription()); 
     }
 
     /** 
@@ -192,5 +206,14 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    /**
+     * Main method to run the game outside BlueJ.
+     */
+    public static void main(String[] args) 
+    {
+        Game game = new Game();
+        game.play();
     }
 }
