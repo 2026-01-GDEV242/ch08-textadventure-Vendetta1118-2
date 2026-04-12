@@ -71,6 +71,16 @@ public class Game
         safeRoom.setExit("south", bedroom);
         
         kitchen.setExit("south",dining);
+        
+        //Inizialized items in each room
+        bedroom.addItem(new Item("key", "A rusty old key", 1));
+        
+        library.addItem(new Item("books", "a stack of dusty old books", 5));
+        library.addItem(new Item("lamp", "an old oil lamp, still slightly warm", 3));
+        
+        kitchen.addItem(new Item("goo", "an unkown gooey substance... it smells awful", 4));
+        
+        lab.addItem(new Item("test_tubes", "strange test tubes filled with glowing liquid", 2));
         currentRoom = foyer;  // start game in foyer
     }
 

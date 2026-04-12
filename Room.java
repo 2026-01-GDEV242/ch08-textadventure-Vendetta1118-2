@@ -100,6 +100,11 @@ public class Room
         return null;
     }
     
+    public void addItem(Item item)
+    {
+        items.add(item);
+    }
+    
     private String getItemString()
     {
         if(items.isEmpty()){
