@@ -1,7 +1,7 @@
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -12,15 +12,15 @@ import java.util.Iterator;
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Joseph Schiavone
+ * @version 2026.04.12
  */
 
 public class Room 
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-
+    private ArrayList<Item> items;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -31,6 +31,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        items = new ArrayList<Item>();
     }
 
     /**
@@ -60,7 +61,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getExitString() + "\n" + getItemString();
     }
 
     /**
@@ -78,6 +79,39 @@ public class Room
         return returnString;
     }
 
+    /**
+     * Remove an item from the room
+     */
+    public void removeItem(Item item)
+    {
+        items.remove(item);
+    }
+    
+    /**
+     * Get an item by name
+     */
+    public Item getItem(String name)
+    {
+        for(Item item : items) {
+            if(item.getName().equalsIgnoreCase(name)){
+                return item;
+            }
+        }
+        return null;
+    }
+    
+    private String getItemString()
+    {
+        if(items.isEmpty()){
+            return "No items here.";
+        }
+        String returnString = "Items:";
+        for (Item item : items){
+            returnString += " " + item.getName();
+        }
+        return returnString;
+    }
+    
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
