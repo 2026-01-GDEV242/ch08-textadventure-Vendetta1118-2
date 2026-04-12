@@ -1,3 +1,4 @@
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,6 +20,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Player player;
         
     /**
      * Create the game and initialise its internal map.
@@ -27,6 +29,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        player = new Player();
     }
 
     /**
@@ -147,6 +150,10 @@ public class Game
             case LOOK: 
                 look();
                 break;
+                
+            case TAKE:
+                takeItem(command);
+                break;
         }
         return wantToQuit;
     }
@@ -215,6 +222,27 @@ public class Game
         }
         else {
             return true;  // signal that we want to quit
+        }
+    }
+    
+    /**
+     * Allows an item to be taken in a room
+     */
+    private void takeItem(Command command)
+    {
+        if(!command.hasSecondWord()){
+            System.out.println("Take what?");
+            return;
+        }
+        String itemName = command.getSecondWord();
+        Item item = currentRoom.getItem(itemName);
+        if(item == null){
+            System.out.println("There is no " + itemName + " here.");
+        }
+        else {
+            player.addItem(item);
+            currentRoom.removeItem(item);
+            System.out.println("You picked up the " + itemName + ".");
         }
     }
     
