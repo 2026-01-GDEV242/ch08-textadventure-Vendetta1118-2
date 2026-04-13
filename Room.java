@@ -80,7 +80,8 @@ public class Room
     }
 
     /**
-     * Remove an item from the room
+     * Remove an item from this room.
+     * @param item The item to remove
      */
     public void removeItem(Item item)
     {
@@ -88,7 +89,10 @@ public class Room
     }
     
     /**
-     * Get an item by name
+     * Find an item in the room by name.
+     * 
+     * @param name The name of the item
+     * @return The item if found, otherwise null
      */
     public Item getItem(String name)
     {
@@ -100,11 +104,20 @@ public class Room
         return null;
     }
     
+    /**
+     * Add an item to this room.
+     * @param item The item to add
+     */
     public void addItem(Item item)
     {
         items.add(item);
     }
     
+    /**
+     * Return a string listing all items in the room.
+     * 
+     * @return A formatted string of items
+     */
     private String getItemString()
     {
         if(items.isEmpty()){

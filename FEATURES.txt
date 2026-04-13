@@ -1,0 +1,29 @@
+A LEVEL FEATURES IMPLEMENTED
+
+Minimum of 8 rooms created (Resident Evil inspired mansion layout)
+Rooms are fully connected with directional exits
+LOOK command implemented to re display current room description
+Items system implemented:
+Each item has a name, description, and weight
+Multiple items can exist in a single room
+Items are displayed in room descriptions
+TAKE command implemented:
+Player can pick up items from rooms
+DROP command implemented:
+Player can drop items back into rooms
+INVENTORY command implemented:
+Displays all items currently carried by the player
+Player class implemented
+Stores and manages player inventory
+BACK command (Partial implementation)
+Player can return to the previous room
+Main method added
+Game can be run outside of BlueJ
+All classes and methods include proper Javadoc comments
+Players can caryy multiple items
+Rooms support multiple items instead of single item limit
+
+OTHER NOTES
+Game is fully playable via text commands
+Commands supported: go, look, take, drop, inventory, back, help, quit
+Designed to simulate exploration of a mansion with interactive objects

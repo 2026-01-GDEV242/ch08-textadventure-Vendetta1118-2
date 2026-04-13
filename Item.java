@@ -1,6 +1,8 @@
 
 /**
- * Represents an item in the game
+ * The Item class represents objects that can be found in rooms
+ * and carried by the player. Each item has a name, description,
+ * and weight.
  *
  * @author Joseph Schiavone
  * @version 2026.04.12
@@ -13,7 +15,11 @@ public class Item
     private int weight;
 
     /**
-     * Constructor for objects of class Item
+     * Create a new item.
+     * 
+     * @param name The name of the item
+     * @param description A short description of the item
+     * @param weight The weight of the item
      */
     public Item(String name, String description, int weight)
     {
@@ -24,7 +30,8 @@ public class Item
     }
 
     /**
-     * Get the name of an item
+     * Get the name of the item.
+     * @return The item's name
      */
     public String getName()
     {
@@ -32,7 +39,8 @@ public class Item
     }
     
     /**
-     * Get the description of an item
+     * Get the description of the item.
+     * @return The item's description
      */
     public String getDescription()
     {
@@ -40,7 +48,8 @@ public class Item
     }
     
     /**
-     * Get the weight of an item
+     * Get the weight of the item.
+     * @return The item's weight
      */
     public int getWeight()
     {

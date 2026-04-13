@@ -1,4 +1,4 @@
-
+import java.util.Stack;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -12,7 +12,10 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Joseph Schiavone
+ * This new version of the game I made is inspired by a 
+ * Resident Evil Style mansion exploration. Enjoy!
+ * 
+ * @author Joseph Schiavone
  * @version 2026.04.10
  */
 
@@ -21,7 +24,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Player player;
-        
+    private Stack<Room> roomHistory;    
     /**
      * Create the game and initialise its internal map.
      */
@@ -30,6 +33,7 @@ public class Game
         createRooms();
         parser = new Parser();
         player = new Player();
+        roomHistory = new Stack<Room>();
     }
 
     /**
@@ -154,6 +158,18 @@ public class Game
             case TAKE:
                 takeItem(command);
                 break;
+            
+            case BACK:
+                goBack(command);
+                break;
+                
+            case INVENTORY:
+                player.showInventory();
+                break;
+                
+            case DROP:
+                dropItem(command);
+                break;
         }
         return wantToQuit;
     }
@@ -204,6 +220,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            roomHistory.push(currentRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
@@ -226,7 +243,9 @@ public class Game
     }
     
     /**
-     * Allows an item to be taken in a room
+     * Take an item from the current room and add it to the player's inventory.
+     * 
+     * @param command The command containing the item name
      */
     private void takeItem(Command command)
     {
@@ -243,6 +262,45 @@ public class Game
             player.addItem(item);
             currentRoom.removeItem(item);
             System.out.println("You picked up the " + itemName + ".");
+        }
+    }
+    
+    /**
+     * Move the player back to the previous room.
+     * 
+     * @param command The command issued by the player
+     */
+    private void goBack(Command command)
+    {
+        if (roomHistory.isEmpty()) {
+            System.out.println("You can't go back any furthur!");
+            return;
+        }
+        else {
+            currentRoom = roomHistory.pop();
+        }
+        System.out.println(currentRoom.getLongDescription());
+    }
+    
+    /**
+     * Drop an item from the player's inventory into the current room.
+     * 
+     * @param command The command containing the item name
+     */
+    private void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+        String itemName = command.getSecondWord();
+        Item item = player.removeItem(itemName);
+        if(item == null) {
+            System.out.println("You don't have a " + itemName + ".");
+        }
+        else {
+            currentRoom.addItem(item);
+            System.out.println("You dropped the " + itemName + ".");
         }
     }
     
